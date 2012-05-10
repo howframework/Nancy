@@ -5,14 +5,24 @@ namespace NancyBlog.Web
     using Nancy;
     using Nancy.Authentication.Forms;
     using Nancy.Extensions;
+    using NancyBlog.Domain;
+    using NancyBlog.Infra;
 
     public class MainModule : NancyModule
     {
-        public MainModule()
+        IRepository repo;
+        Auth auth;
+
+        public MainModule(IRepository repository, Auth authentication)
         {
+            repo = repository;
+            auth = authentication;
+
             Get["/"] = x => {
                 return View["index"];
             };
+
+            //-------------------------------------------------------------------------------- 
 
             Get["/login"] = x =>
                 {
@@ -23,7 +33,7 @@ namespace NancyBlog.Web
                 };
 
             Post["/login"] = x => {
-                var userGuid = UserDatabase.ValidateUser((string)this.Request.Form.Username, (string)this.Request.Form.Password);
+                var userGuid = auth.ValidateUser((string)this.Request.Form.Username, (string)this.Request.Form.Password);
 
                 if (userGuid == null)
                 {
@@ -41,6 +51,21 @@ namespace NancyBlog.Web
 
             Get["/logout"] = x => {
                 return this.LogoutAndRedirect("~/");
+            };
+
+            //-------------------------------------------------------------------------------- 
+
+            Get["/dbcreate"] = x => {
+                var cmd = ((Repository)repo).Command();
+                new DbSetup(cmd).Run(true);
+                return "Tables (re)created.";
+            }; 
+            
+            Get["/dbupgrade"] = x =>
+            {
+                var cmd = ((Repository)repo).Command();
+                new DbSetup(cmd).Run(false);
+                return "Tables upgraded.";
             };
         }
     }

@@ -6,33 +6,34 @@ using NancyBlog.Domain;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace NancyBlog.Infra
 {
     public class Repository : IRepository
     {
         static IDbConnectionFactory DbFactory = new OrmLiteConnectionFactory(
-                                @"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\App_Data\Database1.mdf;Integrated Security=True;User Instance=True",
+                                @"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True",
                                 SqlServerOrmLiteDialectProvider.Instance);
 
-        protected IDbCommand Command()
+        public IDbCommand Command()
         {
             return DbFactory.OpenDbConnection().CreateCommand();
         }
 
-        public IQueryable<T> Query<T>()
-        {            
-            throw new NotImplementedException();
+        public IQueryable<T> Query<T>(Expression<Func<T, bool>> predicate) where T : Entity, new()
+        {
+            return Command().Select<T>(predicate).AsQueryable();
         }
 
-        public T Find<T>(Guid id)
+        public T Find<T>(Guid id) where T : Entity, new()
         {
-            throw new NotImplementedException();
+            return Command().QueryById<T>(id);
         }
 
-        public T First<T>()
+        public T First<T>(Expression<Func<T, bool>> predicate) where T : Entity, new()
         {
-            throw new NotImplementedException();
+            return Command().Select<T>(predicate).FirstOrDefault();
         }
 
         public IUnitOfWork Start()

@@ -6,7 +6,7 @@ using Nancy.Security;
 
 namespace NancyBlog.Web
 {
-    public class DemoUserIdentity : IUserIdentity
+    public class BlogUserIdentity : IUserIdentity
     {
         public string UserName { get; set; }
 
