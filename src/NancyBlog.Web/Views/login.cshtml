@@ -1,20 +1,42 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <form method="POST">
-        Username (admin) <input type="text" name="Username" />
-        <br />
-        Password (qwe) <input name="Password" type="password" />
-        <br />
-        Remember Me <input name="RememberMe" type="checkbox" value="True" />
-        <br />
-        <input type="submit" value="Login" />
-    </form>
-    @if (Model.Errored) {
-        <div id="errorBox" class="floatingError">Invalid Username or Password</div>
-    }
-</body>
-</html>
+﻿@{
+    Layout = "_layout.cshtml";
+}
+
+<form method="POST" class="form-horizontal">
+    
+    <div class="control-group">
+        <label class="control-label" for="Username">Username</label>
+    
+        <div class="controls">
+            <input type="text" name="Username" />
+            <span class="help-inline">e.g: "admin"</span>
+        </div>
+    </div>
+
+   
+    <div class="control-group">
+        <label class="control-label" for="Password">Password</label>
+    
+        <div class="controls">
+            <input type="password" name="Password" />
+            <span class="help-inline">e.g: "qwe"</span>
+        </div>
+    </div>
+   
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input name="RememberMe" type="checkbox" value="True" /> Remember me
+            </label>
+        </div>
+    </div>
+    
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Login" />
+        <a href="/users/register" class="btn">Register</a>
+    </div>
+</form>
+
+@if (Model.Errored) {
+    <div id="errorBox" class="floatingError">Invalid Username or Password</div>
+}

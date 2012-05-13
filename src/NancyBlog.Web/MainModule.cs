@@ -1,13 +1,13 @@
+using System;
+using System.Dynamic;
+using Nancy;
+using Nancy.Authentication.Forms;
+using Nancy.Extensions;
+using NancyBlog.Domain;
+using NancyBlog.Infra;
+
 namespace NancyBlog.Web
 {
-    using System;
-    using System.Dynamic;
-    using Nancy;
-    using Nancy.Authentication.Forms;
-    using Nancy.Extensions;
-    using NancyBlog.Domain;
-    using NancyBlog.Infra;
-
     public class MainModule : NancyModule
     {
         Auth auth;

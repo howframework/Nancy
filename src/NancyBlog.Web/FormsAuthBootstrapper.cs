@@ -1,22 +1,41 @@
+using System.Linq;
+using System.Data.Entity;
+using Nancy;
+using Nancy.Authentication.Forms;
+using Nancy.Bootstrapper;
+using Nancy.Conventions;
+using NancyBlog.Infra;
+using TinyIoC;
+
 namespace NancyBlog.Web
 {
-    using Nancy;
-    using Nancy.Authentication.Forms;
-    using Nancy.Bootstrapper;
-
-    using TinyIoC;
-    using System.Data.Entity;
-    using NancyBlog.Infra;
-
     public class FormsAuthBootstrapper : DefaultNancyBootstrapper
     {
         protected override void ConfigureApplicationContainer(TinyIoC.TinyIoCContainer container)
         {
+            // Set database initializer. Database initializer is will be ran the first time 
+            // a call to the database is made. We can insert sample records in the initializer
+            // class.
             Database.SetInitializer<NancyBlogDbContext>(new NancyBlogDbInitializer());
             
             base.ConfigureApplicationContainer(container);
         }
 
+        protected override void ConfigureConventions(NancyConventions conventions)
+        {
+            base.ConfigureConventions(conventions);
+
+            // We are putting static files in some folders, so we need to tell Nancy where's the folders.
+            // Nancy actually will automatically treat anything in Content folder as static, but we include
+            // it again here just for example
+            new[] { "Content", "Scripts" }.ToList()
+                .ForEach(staticDir =>
+                {
+                    conventions.StaticContentsConventions.Add(
+                        StaticContentConventionBuilder.AddDirectory(staticDir, "/" + staticDir)
+                    );
+                });                
+        }
 
         //protected override void ConfigureApplicationContainer(TinyIoC.TinyIoCContainer container)
         //{
@@ -50,6 +69,14 @@ namespace NancyBlog.Web
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+
+            pipelines.AfterRequest.AddItemToEndOfPipeline(x =>
+            {
+                if (x.CurrentUser != null)
+                    x.ViewBag.CurrentUserName = x.CurrentUser.UserName;
+                else
+                    x.ViewBag.CurrentUserName = null;
+            });
         }
     }
 }
