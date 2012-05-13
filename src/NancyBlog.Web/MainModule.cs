@@ -10,12 +10,10 @@ namespace NancyBlog.Web
 
     public class MainModule : NancyModule
     {
-        IRepository repo;
         Auth auth;
 
-        public MainModule(IRepository repository, Auth authentication)
+        public MainModule(Auth authentication)
         {
-            repo = repository;
             auth = authentication;
 
             Get["/"] = x => {
@@ -51,21 +49,6 @@ namespace NancyBlog.Web
 
             Get["/logout"] = x => {
                 return this.LogoutAndRedirect("~/");
-            };
-
-            //-------------------------------------------------------------------------------- 
-
-            Get["/dbcreate"] = x => {
-                var cmd = ((Repository)repo).Command();
-                new DbSetup(cmd).Run(true);
-                return "Tables (re)created.";
-            }; 
-            
-            Get["/dbupgrade"] = x =>
-            {
-                var cmd = ((Repository)repo).Command();
-                new DbSetup(cmd).Run(false);
-                return "Tables upgraded.";
             };
         }
     }

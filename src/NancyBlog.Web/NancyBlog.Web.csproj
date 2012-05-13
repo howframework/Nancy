@@ -48,21 +48,6 @@
     <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\packages\Nancy.Viewengines.Razor.0.11.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\packages\ServiceStack.Common.3.7.4\lib\net35\ServiceStack.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\packages\ServiceStack.Common.3.7.4\lib\net35\ServiceStack.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.7.6\lib\ServiceStack.OrmLite.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite.SqlServer">
-      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.7.6\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\packages\ServiceStack.Text.3.7.6\lib\net35\ServiceStack.Text.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.DynamicData" />
@@ -102,11 +87,8 @@
     <Compile Include="Auth.cs" />
     <Compile Include="BlogUserIdentity.cs" />
     <Compile Include="FormsAuthBootstrapper.cs" />
-    <Compile Include="Infra\DbSetup.cs" />
     <Compile Include="Infra\NancyBlogDbContext.cs" />
     <Compile Include="Infra\NancyBlogDbInitializer.cs" />
-    <Compile Include="Infra\Repository.cs" />
-    <Compile Include="Infra\UnitOfWork.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,9 +1,9 @@
+using Nancy;
+using NancyBlog.Web.Models;
+using Nancy.Security;
+
 namespace NancyBlog.Web
 {
-    using Nancy;
-    using NancyBlog.Web.Models;
-    using Nancy.Security;
-
     public class AdminModule : NancyModule
     {
         public AdminModule() : base("/admin")
