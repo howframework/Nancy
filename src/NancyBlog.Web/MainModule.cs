@@ -69,7 +69,7 @@ namespace NancyBlog.Web
                 db.Users.Add(domain);
                 db.SaveChanges();
 
-                return Response.AsRedirect("/login");
+                return Response.AsRedirect("/admin");
             };
 
 
