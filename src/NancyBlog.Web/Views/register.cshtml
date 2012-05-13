@@ -6,36 +6,33 @@
     
     <div class="control-group">
         <label class="control-label" for="Username">Username</label>
-    
         <div class="controls">
             <input type="text" name="Username" />
-            <span class="help-inline">e.g: "admin"</span>
         </div>
     </div>
-
    
     <div class="control-group">
         <label class="control-label" for="Password">Password</label>
-    
         <div class="controls">
             <input type="password" name="Password" />
-            <span class="help-inline">e.g: "qwe"</span>
         </div>
     </div>
-   
+
     <div class="control-group">
+        <label class="control-label" for="Email">Email</label>
         <div class="controls">
-            <label class="checkbox">
-                <input name="RememberMe" type="checkbox" value="True" /> Remember me
-            </label>
+            <input type="text" name="Email" />
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="FullName">Full Name</label>
+        <div class="controls">
+            <input type="text" name="FullName" />
         </div>
     </div>
     
     <div class="form-actions">
-        <input class="btn btn-primary" type="submit" value="Login" />
+        <input class="btn btn-primary" type="submit" value="Register" />
     </div>
 </form>
-
-@if (Model.Errored) {
-    <div id="errorBox" class="floatingError">Invalid Username or Password</div>
-}

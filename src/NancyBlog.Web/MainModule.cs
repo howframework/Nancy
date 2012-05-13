@@ -3,18 +3,22 @@ using System.Dynamic;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Extensions;
+using Nancy.ModelBinding;
 using NancyBlog.Domain;
 using NancyBlog.Infra;
+using NancyBlog.Web.Models;
 
 namespace NancyBlog.Web
 {
     public class MainModule : NancyModule
     {
+        NancyBlogDbContext db;
         Auth auth;
 
-        public MainModule(Auth authentication)
+        public MainModule(Auth authentication, NancyBlogDbContext dbContext)
         {
             auth = authentication;
+            db = dbContext;
 
             Get["/"] = x => {
                 return View["index"];
@@ -46,6 +50,28 @@ namespace NancyBlog.Web
 
                 return this.LoginAndRedirect(userGuid.Value, expiry);
             };
+
+            Get["/register"] = x => {
+                return View["register"];
+            };
+
+            Post["/register"] = x => {
+                var model = this.Bind<UserModel>();
+
+                var domain = new User()
+                {
+                    Username = model.Username,
+                    Email = model.Email,
+                    FullName = model.FullName
+                };
+                domain.SetPassword(model.Password);
+
+                db.Users.Add(domain);
+                db.SaveChanges();
+
+                return Response.AsRedirect("/login");
+            };
+
 
             Get["/logout"] = x => {
                 return this.LogoutAndRedirect("~/");

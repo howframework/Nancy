@@ -32,9 +32,8 @@
                 <div class="btn-group pull-right">
                     @if (ViewBag.CurrentUserName == null)
                     { 
-                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="/login">
-                        Login
-                    </a>
+                    <a class="btn" href="/admin">Login</a>
+                    <a class="btn" href="/register">Register</a>
                     }
                     else
                     { 
@@ -51,8 +50,7 @@
                 </div>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="/">Home</a></li>
-                        <li><a href="/admin">Admin</a></li>
+                        <li class="active"><a href="/">View Blog</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
