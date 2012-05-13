@@ -12,12 +12,12 @@ namespace NancyBlog.Infra
         protected override void Seed(NancyBlogDbContext context)
         {
             new[] {
-                new UserAccount {
+                new User {
                     Username = "admin",
                     Email = "admin@localhost",
                     FullName = "Admin User"
                 },
-                new UserAccount {
+                new User {
                     Username = "user1",
                     Email = "user1@localhost",
                     FullName = "User 1"

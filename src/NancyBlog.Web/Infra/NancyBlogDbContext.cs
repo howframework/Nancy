@@ -9,6 +9,6 @@ namespace NancyBlog.Infra
 {
     public class NancyBlogDbContext : DbContext
     {
-        public IDbSet<UserAccount> Users { get; set; }
+        public IDbSet<User> Users { get; set; }
     }
 }

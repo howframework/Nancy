@@ -7,12 +7,10 @@ using System.IO;
 
 namespace NancyBlog.Domain
 {    
-    public class UserAccount : Entity
+    public class User : Entity
     {
         public string Username { get; set; }
-        //TODO: OrmLite saving byte[] didn't work, testing with string first.
-        //public byte[] Password { get; set; }
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
 
@@ -20,7 +18,7 @@ namespace NancyBlog.Domain
 
         public virtual void SetPassword(string plainTextPassword)
         {
-            Password = plainTextPassword; //Encrypt(plainTextPassword);
+            this.Password = Encrypt(plainTextPassword);
         }
 
         /// <summary>
@@ -30,7 +28,7 @@ namespace NancyBlog.Domain
         /// <returns>Returns true if attemptedPassword is same as stored password</returns>
         public virtual bool CheckPassword(string attemptedPassword)
         {
-            return attemptedPassword == Password; // Decrypt(this.Password);
+            return attemptedPassword == Decrypt(this.Password);
         }
 
         #region "Encryption stuff"
