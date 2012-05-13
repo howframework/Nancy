@@ -11,6 +11,5 @@ To Run
 
 1. Open `src/NancyBlog.sln` in Visual Studio.
 2. Hit `F5` (or the Start Debugging button).
-3. Create tables by clicking the link in the home page.
 
 Database should just be there, we are using SQL Server Compact Edition in the `App_Data` folder.
