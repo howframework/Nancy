@@ -5,21 +5,50 @@ using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Security;
 using NancyBlog.Domain;
+using NancyBlog.Infra;
 
 namespace NancyBlog.Web
 {
+    //public class Auth : IUserMapper
+    //{
+    //    IRepository repo;
+
+    //    public Auth(IRepository repository)
+    //    {
+    //        repo = repository;
+    //    }
+
+    //    public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
+    //    {
+    //        var user = repo.Find<UserAccount>(identifier);
+    //        return user == null
+    //                   ? null
+    //                   : new BlogUserIdentity { UserName = user.Username };
+    //    }
+
+    //    public Guid? ValidateUser(string username, string password)
+    //    {
+    //        var user = repo.First<UserAccount>(x => x.Username == username);
+
+    //        if (user == null || !user.CheckPassword(password))
+    //            return null;
+
+    //        return user.Id;
+    //    }
+    //}
+
     public class Auth : IUserMapper
     {
-        IRepository repo;
+        NancyBlogDbContext db;
 
-        public Auth(IRepository repository)
+        public Auth(NancyBlogDbContext dbContext)
         {
-            repo = repository;
+            db = dbContext;
         }
 
         public IUserIdentity GetUserFromIdentifier(Guid identifier, NancyContext context)
         {
-            var user = repo.Find<UserAccount>(identifier);
+            var user = db.Users.Find(identifier);
             return user == null
                        ? null
                        : new BlogUserIdentity { UserName = user.Username };
@@ -27,7 +56,7 @@ namespace NancyBlog.Web
 
         public Guid? ValidateUser(string username, string password)
         {
-            var user = repo.First<UserAccount>(x => x.Username == username);
+            var user = db.Users.FirstOrDefault(x => x.Username == username);
 
             if (user == null || !user.CheckPassword(password))
                 return null;

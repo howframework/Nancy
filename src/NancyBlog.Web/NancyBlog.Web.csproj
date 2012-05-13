@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy">
       <HintPath>..\packages\Nancy.0.11.0\lib\net40\Nancy.dll</HintPath>
@@ -60,6 +63,8 @@
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.3.7.6\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -98,6 +103,8 @@
     <Compile Include="BlogUserIdentity.cs" />
     <Compile Include="FormsAuthBootstrapper.cs" />
     <Compile Include="Infra\DbSetup.cs" />
+    <Compile Include="Infra\NancyBlogDbContext.cs" />
+    <Compile Include="Infra\NancyBlogDbInitializer.cs" />
     <Compile Include="Infra\Repository.cs" />
     <Compile Include="Infra\UnitOfWork.cs" />
     <Compile Include="MainModule.cs" />
@@ -145,8 +152,8 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>
-start xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.11.0\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin"
-start xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.11.0\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin"</PostBuildEvent>
+start /MIN xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.11.0\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin"
+start /MIN xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.11.0\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

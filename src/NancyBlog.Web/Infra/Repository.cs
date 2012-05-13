@@ -7,13 +7,14 @@ using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 using System.Data;
 using System.Linq.Expressions;
+using System.Configuration;
 
 namespace NancyBlog.Infra
 {
     public class Repository : IRepository
     {
         static IDbConnectionFactory DbFactory = new OrmLiteConnectionFactory(
-                                @"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;User Instance=True",
+                                ConfigurationManager.ConnectionStrings["conn1"].ConnectionString,
                                 SqlServerOrmLiteDialectProvider.Instance);
 
         public IDbCommand Command()

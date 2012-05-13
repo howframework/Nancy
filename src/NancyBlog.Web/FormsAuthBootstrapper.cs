@@ -5,9 +5,19 @@ namespace NancyBlog.Web
     using Nancy.Bootstrapper;
 
     using TinyIoC;
+    using System.Data.Entity;
+    using NancyBlog.Infra;
 
     public class FormsAuthBootstrapper : DefaultNancyBootstrapper
     {
+        protected override void ConfigureApplicationContainer(TinyIoC.TinyIoCContainer container)
+        {
+            Database.SetInitializer<NancyBlogDbContext>(new NancyBlogDbInitializer());
+            
+            base.ConfigureApplicationContainer(container);
+        }
+
+
         //protected override void ConfigureApplicationContainer(TinyIoC.TinyIoCContainer container)
         //{
         //    // We don't call "base" here to prevent auto-discovery of
