@@ -16,7 +16,9 @@ namespace NancyBlog.Web
             // Set database initializer. Database initializer is will be ran the first time 
             // a call to the database is made. We can insert sample records in the initializer
             // class.
-            Database.SetInitializer<NancyBlogDbContext>(new NancyBlogDbInitializer());
+            //Database.SetInitializer<NancyBlogDbContext>(new NancyBlogDbInitializer());
+            Database.SetInitializer<NancyBlogDbContext>(
+                new MigrateDatabaseToLatestVersion<NancyBlogDbContext, NancyBlog.Migrations.Configuration>());
             
             base.ConfigureApplicationContainer(container);
         }
