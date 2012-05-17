@@ -44,3 +44,8 @@ _ReSharper*/
 
 # Office Temp Files
 ~$*
+
+#Generated database
+*.sdf
+*.mdf
+*.ldf

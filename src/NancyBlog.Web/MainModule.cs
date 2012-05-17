@@ -21,6 +21,8 @@ namespace NancyBlog.Web
             db = dbContext;
 
             Get["/"] = x => {
+                var connstr = System.Configuration.ConfigurationManager.ConnectionStrings["NancyBlogDbContext"];
+                ViewBag.ConnString = "ConnString: " + connstr.ConnectionString + " \r\nProvider: " + connstr.ProviderName;
                 return View["index"];
             };
 
